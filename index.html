@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>C# Data Types Interview Worksheet</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f6fb;
+  color:#172033;
+  overflow-x:hidden;
+}
+
+.container{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:18px;
+}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#1d4ed8,#7c3aed);
+  color:white;
+  border-radius:20px;
+  padding:25px 20px;
+  margin-bottom:18px;
+  box-shadow:0 8px 25px #0002;
+}
+
+.header h1{
+  margin:0 0 8px;
+  font-size:clamp(21px,4vw,30px);
+  line-height:1.3;
+}
+
+.header p{
+  margin:0;
+  font-size:15px;
+  line-height:1.5;
+  opacity:.93;
+}
+
+/* CARD */
+.card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 5px 20px #0001;
+}
+
+/* META */
+.meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+  color:#667085;
+  font-size:14px;
+}
+
+/* PROGRESS */
+.progress{
+  width:100%;
+  height:9px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin:8px 0 20px;
+}
+
+.bar{
+  height:100%;
+  background:linear-gradient(90deg,#2563eb,#7c3aed);
+  width:4%;
+  transition:.3s;
+}
+
+/* QUESTION */
+.question{
+  font-size:clamp(18px,3vw,23px);
+  font-weight:700;
+  line-height:1.45;
+  margin-bottom:15px;
+}
+
+/* TEXTAREA */
+textarea{
+  display:block;
+  width:100%;
+  min-height:190px;
+  border:2px solid #d8dee9;
+  border-radius:14px;
+  padding:15px;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:17px;
+  line-height:1.5;
+  resize:vertical;
+  outline:none;
+  color:#172033;
+  background:white;
+}
+
+textarea:focus{
+  border-color:#4f46e5;
+  box-shadow:0 0 0 4px #4f46e51a;
+}
+
+/* BUTTONS */
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+button{
+  border:0;
+  border-radius:11px;
+  padding:13px 15px;
+  min-height:46px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.primary{
+  background:#2563eb;
+  color:white;
+}
+
+.secondary{
+  background:#eef2ff;
+  color:#3730a3;
+}
+
+.success{
+  background:#16a34a;
+  color:white;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+/* FEEDBACK */
+.feedback{
+  margin-top:15px;
+  padding:14px;
+  border-radius:12px;
+  background:#f8fafc;
+  display:none;
+  line-height:1.55;
+}
+
+/* MODEL ANSWER */
+.answer{
+  margin-top:12px;
+  padding:14px;
+  border-radius:12px;
+  background:#ecfdf5;
+  border-left:4px solid #16a34a;
+  display:none;
+  line-height:1.55;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  color:#667085;
+  font-size:13px;
+  line-height:1.5;
+  padding:18px 5px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  .container{
+    padding:10px;
+  }
+
+  .header{
+    padding:20px 16px;
+    border-radius:16px;
+  }
+
+  .header h1{
+    font-size:22px;
+  }
+
+  .header p{
+    font-size:13px;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:16px;
+  }
+
+  .question{
+    font-size:18px;
+  }
+
+  textarea{
+    min-height:220px;
+    font-size:16px;
+  }
+
+  .buttons{
+    grid-template-columns:1fr;
+  }
+
+  button{
+    width:100%;
+  }
+}
+
+/* VERY SMALL MOBILE */
+@media(max-width:360px){
+
+  .container{
+    padding:7px;
+  }
+
+  .card{
+    padding:13px;
+  }
+
+  .header{
+    padding:17px 13px;
+  }
+
+  .header h1{
+    font-size:20px;
+  }
+
+  .question{
+    font-size:17px;
+  }
+
+  textarea{
+    min-height:210px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>💻 C# Data Types Interview Worksheet</h1>
+    <p>Top 25 Interview Questions • Write your answer • Check yourself</p>
+  </div>
+
+  <div class="card">
+
+    <div class="meta">
+      <span id="counter">Question 1 of 25</span>
+      <span id="score">Score: 0</span>
+    </div>
+
+    <div class="progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div class="question" id="question"></div>
+
+    <textarea
+      id="userAnswer"
+      placeholder="✍️ Write your answer here..."
+    ></textarea>
+
+    <div class="buttons">
+
+      <button
+        type="button"
+        class="success"
+        onclick="checkAnswer()">
+        ✓ Check Answer
+      </button>
+
+      <button
+        type="button"
+        class="secondary"
+        onclick="showAnswer()">
+        👁 Show Model Answer
+      </button>
+
+      <button
+        type="button"
+        class="primary"
+        onclick="nextQuestion()">
+        Next Question →
+      </button>
+
+      <button
+        type="button"
+        class="danger"
+        onclick="clearAnswer()">
+        Clear
+      </button>
+
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="answer" id="modelAnswer"></div>
+
+  </div>
+
+  <div class="footer">
+    Tip: पहले बिना देखे English में answer लिखें। फिर
+    “Show Model Answer” से compare करें।
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   QUESTIONS
+========================= */
+
+const questions = [
+
+[
+"What is a data type in C#?",
+"A data type tells the compiler what type of data a variable can store."
+],
+
+[
+"What are the main types of data types in C#?",
+"C# data types are mainly divided into two types: Value Type and Reference Type."
+],
+
+[
+"What is a Value Type?",
+"A value type stores the actual value directly. Examples include int, float, double, decimal, char, bool, struct and enum."
+],
+
+[
+"What is a Reference Type?",
+"A reference type stores a reference to an object. Examples include class, string, array, object, interface and delegate."
+],
+
+[
+"What is the difference between Value Type and Reference Type?",
+"A value type stores the actual value, while a reference type stores a reference to an object."
+],
+
+[
+"What is int in C#?",
+"int is a 32-bit signed integer data type. Its size is 4 bytes."
+],
+
+[
+"What is the range of int?",
+"int can store whole numbers from -2,147,483,648 to 2,147,483,647."
+],
+
+[
+"What is the difference between int and long?",
+"int is 32-bit, while long is 64-bit. long can store much larger numbers."
+],
+
+[
+"What is byte?",
+"byte is an unsigned 8-bit integer. Its range is 0 to 255 and its size is 1 byte."
+],
+
+[
+"What is the difference between byte and sbyte?",
+"byte stores 0 to 255, while sbyte stores -128 to 127."
+],
+
+[
+"What is float?",
+"float is used to store floating-point numbers. It uses 4 bytes."
+],
+
+[
+"What is double?",
+"double is used to store floating-point numbers and provides more precision than float. It uses 8 bytes."
+],
+
+[
+"What is the difference between float and double?",
+"float uses 4 bytes, while double uses 8 bytes. double provides higher precision than float."
+],
+
+[
+"What is decimal?",
+"decimal is used for high-precision decimal calculations. It is commonly used for money and financial calculations."
+],
+
+[
+"Why do we use decimal for money?",
+"decimal provides high precision for decimal values, so it is commonly used for financial and monetary calculations."
+],
+
+[
+"What is the difference between float, double and decimal?",
+"float uses less memory, double gives more precision than float, and decimal is commonly used for financial calculations."
+],
+
+[
+"What is char?",
+"char is used to store a single character. It uses 2 bytes."
+],
+
+[
+"What is the difference between char and string?",
+"char stores a single character, while string stores a sequence of characters."
+],
+
+[
+"Is string a Value Type or Reference Type?",
+"String is a reference type. String is immutable, so it often behaves like a value even though it is a reference type."
+],
+
+[
+"What is bool?",
+"bool stores only two values: true and false. It is commonly used in conditions."
+],
+
+[
+"What is object in C#?",
+"object is the base type of all .NET types. An object variable can hold values of different types."
+],
+
+[
+"What is boxing?",
+"Converting a value type into an object type is called boxing."
+],
+
+[
+"What is unboxing?",
+"Converting a boxed object back to its value type is called unboxing."
+],
+
+[
+"What is var in C#?",
+"var allows the compiler to automatically determine the type of a variable. var is not a separate data type."
+],
+
+[
+"What is the difference between var and dynamic?",
+"var is resolved at compile time, while dynamic is resolved at runtime."
+]
+
+];
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let index = 0;
+let score = 0;
+let checkedThis = false;
+
+const q = document.getElementById("question");
+const ta = document.getElementById("userAnswer");
+const feedback = document.getElementById("feedback");
+const model = document.getElementById("modelAnswer");
+const counter = document.getElementById("counter");
+const scoreBox = document.getElementById("score");
+const bar = document.getElementById("bar");
+
+
+/* =========================
+   RENDER QUESTION
+========================= */
+
+function render(){
+
+  q.textContent = questions[index][0];
+
+  const savedAnswer =
+    localStorage.getItem("csharp_ws_" + index);
+
+  ta.value = savedAnswer || "";
+
+  counter.textContent =
+    "Question " + (index + 1) +
+    " of " + questions.length;
+
+  scoreBox.textContent =
+    "Score: " + score;
+
+  bar.style.width =
+    ((index + 1) / questions.length * 100) + "%";
+
+  feedback.style.display = "none";
+  model.style.display = "none";
+
+  checkedThis = false;
+
+  ta.focus();
+}
+
+
+/* =========================
+   SAVE ANSWER
+========================= */
+
+ta.addEventListener("input", function(){
+
+  localStorage.setItem(
+    "csharp_ws_" + index,
+    ta.value
+  );
+
+});
+
+
+/* =========================
+   CHECK ANSWER
+========================= */
+
+function checkAnswer(){
+
+  const answer = ta.value.trim();
+
+  if(answer === ""){
+
+    feedback.innerHTML =
+      "⚠️ Please write your answer first.";
+
+    feedback.style.display = "block";
+
+    return;
+  }
+
+  if(!checkedThis){
+
+    score++;
+    checkedThis = true;
+
+  }
+
+  feedback.innerHTML =
+    "<b>✓ Answer submitted!</b><br>" +
+    "Now compare your answer with the model answer.";
+
+  feedback.style.display = "block";
+
+  scoreBox.textContent =
+    "Score: " + score;
+
+}
+
+
+/* =========================
+   SHOW MODEL ANSWER
+========================= */
+
+function showAnswer(){
+
+  model.innerHTML =
+    "<b>📖 Model Answer:</b><br><br>" +
+    questions[index][1];
+
+  model.style.display = "block";
+
+}
+
+
+/* =========================
+   NEXT QUESTION
+========================= */
+
+function nextQuestion(){
+
+  if(index < questions.length - 1){
+
+    index++;
+
+    render();
+
+  }
+
+  else{
+
+    q.textContent =
+      "🎉 Worksheet Complete!";
+
+    ta.value = "";
+
+    ta.disabled = true;
+
+    feedback.style.display = "block";
+
+    feedback.innerHTML =
+      "<b>Your practice score: " +
+      score +
+      " / " +
+      questions.length +
+      "</b><br><br>" +
+      "Review the questions where your answer was incomplete, then practice again.";
+
+    model.style.display = "none";
+
+    bar.style.width = "100%";
+
+    counter.textContent =
+      "Completed";
+
+  }
+
+}
+
+
+/* =========================
+   CLEAR ANSWER
+========================= */
+
+function clearAnswer(){
+
+  ta.value = "";
+
+  localStorage.removeItem(
+    "csharp_ws_" + index
+  );
+
+  feedback.style.display = "none";
+  model.style.display = "none";
+
+  ta.focus();
+
+}
+
+
+/* =========================
+   START APP
+========================= */
+
+render();
+
+</script>
+
+</body>
+  </html>

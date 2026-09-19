@@ -1,668 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>C# Data Types Interview Worksheet</title>
+    <title>Aryapratap | Developer</title>
 
-<style>
-*{
-  box-sizing:border-box;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-html,body{
-  margin:0;
-  padding:0;
-  width:100%;
-  min-height:100%;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f3f6fb;
-  color:#172033;
-  overflow-x:hidden;
-}
+        body {
+            background: #080b16;
+            color: white;
+            line-height: 1.6;
+        }
 
-.container{
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  padding:18px;
-}
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 11, 22, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
 
-/* HEADER */
-.header{
-  background:linear-gradient(135deg,#1d4ed8,#7c3aed);
-  color:white;
-  border-radius:20px;
-  padding:25px 20px;
-  margin-bottom:18px;
-  box-shadow:0 8px 25px #0002;
-}
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #00eaff;
+        }
 
-.header h1{
-  margin:0 0 8px;
-  font-size:clamp(21px,4vw,30px);
-  line-height:1.3;
-}
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
 
-.header p{
-  margin:0;
-  font-size:15px;
-  line-height:1.5;
-  opacity:.93;
-}
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-/* CARD */
-.card{
-  background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px #0001;
-}
+        nav ul li a:hover {
+            color: #00eaff;
+        }
 
-/* META */
-.meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
-  color:#667085;
-  font-size:14px;
-}
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+            background:
+                radial-gradient(circle at 20% 30%, #123d5c 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, #32155c 0%, transparent 30%);
+        }
 
-/* PROGRESS */
-.progress{
-  width:100%;
-  height:9px;
-  background:#e5e7eb;
-  border-radius:20px;
-  overflow:hidden;
-  margin:8px 0 20px;
-}
+        .hero-content {
+            max-width: 850px;
+        }
 
-.bar{
-  height:100%;
-  background:linear-gradient(90deg,#2563eb,#7c3aed);
-  width:4%;
-  transition:.3s;
-}
+        .hero h1 {
+            font-size: clamp(50px, 9vw, 100px);
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00eaff, #8a5cff, #ff3cac);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-/* QUESTION */
-.question{
-  font-size:clamp(18px,3vw,23px);
-  font-weight:700;
-  line-height:1.45;
-  margin-bottom:15px;
-}
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
 
-/* TEXTAREA */
-textarea{
-  display:block;
-  width:100%;
-  min-height:190px;
-  border:2px solid #d8dee9;
-  border-radius:14px;
-  padding:15px;
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:17px;
-  line-height:1.5;
-  resize:vertical;
-  outline:none;
-  color:#172033;
-  background:white;
-}
+        .hero p {
+            color: #aaa;
+            font-size: 18px;
+            max-width: 650px;
+            margin: auto;
+        }
 
-textarea:focus{
-  border-color:#4f46e5;
-  box-shadow:0 0 0 4px #4f46e51a;
-}
+        .buttons {
+            margin-top: 35px;
+        }
 
-/* BUTTONS */
-.buttons{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:15px;
-}
+        .btn {
+            display: inline-block;
+            padding: 13px 28px;
+            margin: 8px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            border: 1px solid #00eaff;
+            transition: 0.3s;
+        }
 
-button{
-  border:0;
-  border-radius:11px;
-  padding:13px 15px;
-  min-height:46px;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-}
+        .btn:hover {
+            background: #00eaff;
+            color: #080b16;
+            box-shadow: 0 0 25px #00eaff;
+        }
 
-button:active{
-  transform:scale(.98);
-}
+        /* COMMON */
+        section {
+            padding: 90px 8%;
+        }
 
-.primary{
-  background:#2563eb;
-  color:white;
-}
+        .title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 50px;
+        }
 
-.secondary{
-  background:#eef2ff;
-  color:#3730a3;
-}
+        .title span {
+            color: #00eaff;
+        }
 
-.success{
-  background:#16a34a;
-  color:white;
-}
+        /* ABOUT */
+        .about {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            color: #bbb;
+            font-size: 18px;
+        }
 
-.danger{
-  background:#fee2e2;
-  color:#991b1b;
-}
+        /* SKILLS */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
 
-/* FEEDBACK */
-.feedback{
-  margin-top:15px;
-  padding:14px;
-  border-radius:12px;
-  background:#f8fafc;
-  display:none;
-  line-height:1.55;
-}
+        .skill {
+            padding: 30px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            transition: 0.3s;
+        }
 
-/* MODEL ANSWER */
-.answer{
-  margin-top:12px;
-  padding:14px;
-  border-radius:12px;
-  background:#ecfdf5;
-  border-left:4px solid #16a34a;
-  display:none;
-  line-height:1.55;
-}
+        .skill:hover {
+            transform: translateY(-8px);
+            border-color: #00eaff;
+            box-shadow: 0 0 25px rgba(0,234,255,0.2);
+        }
 
-/* FOOTER */
-.footer{
-  text-align:center;
-  color:#667085;
-  font-size:13px;
-  line-height:1.5;
-  padding:18px 5px;
-}
+        .skill h3 {
+            color: #00eaff;
+            margin-bottom: 10px;
+        }
 
-/* MOBILE */
-@media(max-width:600px){
+        /* PROJECTS */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
 
-  .container{
-    padding:10px;
-  }
+        .project {
+            padding: 30px;
+            background: linear-gradient(145deg, #111629, #0c0f1e);
+            border-radius: 20px;
+            border: 1px solid #20263c;
+            transition: 0.3s;
+        }
 
-  .header{
-    padding:20px 16px;
-    border-radius:16px;
-  }
+        .project:hover {
+            transform: translateY(-10px);
+            border-color: #8a5cff;
+            box-shadow: 0 0 30px rgba(138,92,255,0.2);
+        }
 
-  .header h1{
-    font-size:22px;
-  }
+        .project h3 {
+            color: #8a5cff;
+            margin-bottom: 12px;
+        }
 
-  .header p{
-    font-size:13px;
-  }
+        .project p {
+            color: #aaa;
+        }
 
-  .card{
-    padding:16px;
-    border-radius:16px;
-  }
+        /* CONTACT */
+        .contact {
+            text-align: center;
+        }
 
-  .question{
-    font-size:18px;
-  }
+        .contact p {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
 
-  textarea{
-    min-height:220px;
-    font-size:16px;
-  }
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+        }
 
-  .buttons{
-    grid-template-columns:1fr;
-  }
+        footer span {
+            color: #00eaff;
+        }
 
-  button{
-    width:100%;
-  }
-}
+        /* MOBILE */
+        @media(max-width: 650px) {
 
-/* VERY SMALL MOBILE */
-@media(max-width:360px){
+            nav {
+                padding: 15px 5%;
+            }
 
-  .container{
-    padding:7px;
-  }
+            nav ul {
+                display: none;
+            }
 
-  .card{
-    padding:13px;
-  }
+            .hero h2 {
+                font-size: 22px;
+            }
 
-  .header{
-    padding:17px 13px;
-  }
+            .hero p {
+                font-size: 16px;
+            }
 
-  .header h1{
-    font-size:20px;
-  }
+            section {
+                padding: 70px 5%;
+            }
 
-  .question{
-    font-size:17px;
-  }
-
-  textarea{
-    min-height:210px;
-  }
-}
-</style>
+            .title {
+                font-size: 34px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Aryapratap</div>
 
-  <div class="header">
-    <h1>💻 C# Data Types Interview Worksheet</h1>
-    <p>Top 25 Interview Questions • Write your answer • Check yourself</p>
-  </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-  <div class="card">
 
-    <div class="meta">
-      <span id="counter">Question 1 of 25</span>
-      <span id="score">Score: 0</span>
-    </div>
-
-    <div class="progress">
-      <div class="bar" id="bar"></div>
-    </div>
-
-    <div class="question" id="question"></div>
+    <!-- HERO -->
+    <section class="hero" id="home">
 
-    <textarea
-      id="userAnswer"
-      placeholder="✍️ Write your answer here..."
-    ></textarea>
+        <div class="hero-content">
 
-    <div class="buttons">
-
-      <button
-        type="button"
-        class="success"
-        onclick="checkAnswer()">
-        ✓ Check Answer
-      </button>
-
-      <button
-        type="button"
-        class="secondary"
-        onclick="showAnswer()">
-        👁 Show Model Answer
-      </button>
-
-      <button
-        type="button"
-        class="primary"
-        onclick="nextQuestion()">
-        Next Question →
-      </button>
-
-      <button
-        type="button"
-        class="danger"
-        onclick="clearAnswer()">
-        Clear
-      </button>
-
-    </div>
-
-    <div class="feedback" id="feedback"></div>
-
-    <div class="answer" id="modelAnswer"></div>
-
-  </div>
-
-  <div class="footer">
-    Tip: पहले बिना देखे English में answer लिखें। फिर
-    “Show Model Answer” से compare करें।
-  </div>
-
-</div>
-
-
-<script>
-
-/* =========================
-   QUESTIONS
-========================= */
-
-const questions = [
-
-[
-"What is a data type in C#?",
-"A data type tells the compiler what type of data a variable can store."
-],
-
-[
-"What are the main types of data types in C#?",
-"C# data types are mainly divided into two types: Value Type and Reference Type."
-],
-
-[
-"What is a Value Type?",
-"A value type stores the actual value directly. Examples include int, float, double, decimal, char, bool, struct and enum."
-],
-
-[
-"What is a Reference Type?",
-"A reference type stores a reference to an object. Examples include class, string, array, object, interface and delegate."
-],
-
-[
-"What is the difference between Value Type and Reference Type?",
-"A value type stores the actual value, while a reference type stores a reference to an object."
-],
-
-[
-"What is int in C#?",
-"int is a 32-bit signed integer data type. Its size is 4 bytes."
-],
-
-[
-"What is the range of int?",
-"int can store whole numbers from -2,147,483,648 to 2,147,483,647."
-],
-
-[
-"What is the difference between int and long?",
-"int is 32-bit, while long is 64-bit. long can store much larger numbers."
-],
-
-[
-"What is byte?",
-"byte is an unsigned 8-bit integer. Its range is 0 to 255 and its size is 1 byte."
-],
-
-[
-"What is the difference between byte and sbyte?",
-"byte stores 0 to 255, while sbyte stores -128 to 127."
-],
-
-[
-"What is float?",
-"float is used to store floating-point numbers. It uses 4 bytes."
-],
-
-[
-"What is double?",
-"double is used to store floating-point numbers and provides more precision than float. It uses 8 bytes."
-],
-
-[
-"What is the difference between float and double?",
-"float uses 4 bytes, while double uses 8 bytes. double provides higher precision than float."
-],
-
-[
-"What is decimal?",
-"decimal is used for high-precision decimal calculations. It is commonly used for money and financial calculations."
-],
-
-[
-"Why do we use decimal for money?",
-"decimal provides high precision for decimal values, so it is commonly used for financial and monetary calculations."
-],
-
-[
-"What is the difference between float, double and decimal?",
-"float uses less memory, double gives more precision than float, and decimal is commonly used for financial calculations."
-],
-
-[
-"What is char?",
-"char is used to store a single character. It uses 2 bytes."
-],
+            <h1>Aryapratap</h1>
 
-[
-"What is the difference between char and string?",
-"char stores a single character, while string stores a sequence of characters."
-],
+            <h2>💻 Developer | C# Learner | Future Full Stack Developer</h2>
 
-[
-"Is string a Value Type or Reference Type?",
-"String is a reference type. String is immutable, so it often behaves like a value even though it is a reference type."
-],
+            <p>
+                Welcome to my personal GitHub website.
+                I love coding, learning new technologies and building
+                modern web applications.
+            </p>
 
-[
-"What is bool?",
-"bool stores only two values: true and false. It is commonly used in conditions."
-],
+            <div class="buttons">
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn">Contact Me</a>
+            </div>
 
-[
-"What is object in C#?",
-"object is the base type of all .NET types. An object variable can hold values of different types."
-],
+        </div>
 
-[
-"What is boxing?",
-"Converting a value type into an object type is called boxing."
-],
+    </section>
 
-[
-"What is unboxing?",
-"Converting a boxed object back to its value type is called unboxing."
-],
 
-[
-"What is var in C#?",
-"var allows the compiler to automatically determine the type of a variable. var is not a separate data type."
-],
+    <!-- ABOUT -->
+    <section id="about">
 
-[
-"What is the difference between var and dynamic?",
-"var is resolved at compile time, while dynamic is resolved at runtime."
-]
+        <h2 class="title">About <span>Me</span></h2>
 
-];
+        <div class="about">
 
+            <p>
+                Hello! I'm <strong>Aryapratap</strong>.
+                I am passionate about programming and technology.
+                Currently, I am improving my skills in C#, web development,
+                HTML, CSS and JavaScript.
+            </p>
 
-/* =========================
-   VARIABLES
-========================= */
+            <br>
 
-let index = 0;
-let score = 0;
-let checkedThis = false;
+            <p>
+                My goal is to become a professional software developer
+                and create useful, beautiful and powerful applications.
+            </p>
 
-const q = document.getElementById("question");
-const ta = document.getElementById("userAnswer");
-const feedback = document.getElementById("feedback");
-const model = document.getElementById("modelAnswer");
-const counter = document.getElementById("counter");
-const scoreBox = document.getElementById("score");
-const bar = document.getElementById("bar");
+        </div>
 
+    </section>
 
-/* =========================
-   RENDER QUESTION
-========================= */
 
-function render(){
+    <!-- SKILLS -->
+    <section id="skills">
 
-  q.textContent = questions[index][0];
+        <h2 class="title">My <span>Skills</span></h2>
 
-  const savedAnswer =
-    localStorage.getItem("csharp_ws_" + index);
+        <div class="skills">
 
-  ta.value = savedAnswer || "";
+            <div class="skill">
+                <h3>HTML</h3>
+                <p>Web Structure</p>
+            </div>
 
-  counter.textContent =
-    "Question " + (index + 1) +
-    " of " + questions.length;
+            <div class="skill">
+                <h3>CSS</h3>
+                <p>Modern UI Design</p>
+            </div>
 
-  scoreBox.textContent =
-    "Score: " + score;
+            <div class="skill">
+                <h3>JavaScript</h3>
+                <p>Web Interactivity</p>
+            </div>
 
-  bar.style.width =
-    ((index + 1) / questions.length * 100) + "%";
+            <div class="skill">
+                <h3>C#</h3>
+                <p>Programming & OOP</p>
+            </div>
 
-  feedback.style.display = "none";
-  model.style.display = "none";
+            <div class="skill">
+                <h3>.NET</h3>
+                <p>Application Development</p>
+            </div>
 
-  checkedThis = false;
+            <div class="skill">
+                <h3>GitHub</h3>
+                <p>Version Control</p>
+            </div>
 
-  ta.focus();
-}
+        </div>
 
+    </section>
 
-/* =========================
-   SAVE ANSWER
-========================= */
 
-ta.addEventListener("input", function(){
+    <!-- PROJECTS -->
+    <section id="projects">
 
-  localStorage.setItem(
-    "csharp_ws_" + index,
-    ta.value
-  );
+        <h2 class="title">My <span>Projects</span></h2>
 
-});
+        <div class="projects">
 
+            <div class="project">
+                <h3>🌐 Personal Website</h3>
+                <p>
+                    A modern responsive personal portfolio website
+                    created using HTML and CSS.
+                </p>
+            </div>
 
-/* =========================
-   CHECK ANSWER
-========================= */
+            <div class="project">
+                <h3>💻 C# Projects</h3>
+                <p>
+                    Console applications and OOP based projects
+                    created while learning C#.
+                </p>
+            </div>
 
-function checkAnswer(){
+            <div class="project">
+                <h3>🚀 Future Project</h3>
+                <p>
+                    More exciting projects will be added here soon.
+                </p>
+            </div>
 
-  const answer = ta.value.trim();
+        </div>
 
-  if(answer === ""){
+    </section>
 
-    feedback.innerHTML =
-      "⚠️ Please write your answer first.";
 
-    feedback.style.display = "block";
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
 
-    return;
-  }
+        <h2 class="title">Contact <span>Me</span></h2>
 
-  if(!checkedThis){
+        <p>
+            Want to connect with me or see my coding journey?
+        </p>
 
-    score++;
-    checkedThis = true;
+        <a href="https://github.com/" class="btn">
+            ⭐ GitHub Profile
+        </a>
 
-  }
+    </section>
 
-  feedback.innerHTML =
-    "<b>✓ Answer submitted!</b><br>" +
-    "Now compare your answer with the model answer.";
 
-  feedback.style.display = "block";
+    <!-- FOOTER -->
+    <footer>
 
-  scoreBox.textContent =
-    "Score: " + score;
+        <p>
+            © 2026 <span>Aryapratap</span> | Made with ❤️ & Code
+        </p>
 
-}
-
-
-/* =========================
-   SHOW MODEL ANSWER
-========================= */
-
-function showAnswer(){
-
-  model.innerHTML =
-    "<b>📖 Model Answer:</b><br><br>" +
-    questions[index][1];
-
-  model.style.display = "block";
-
-}
-
-
-/* =========================
-   NEXT QUESTION
-========================= */
-
-function nextQuestion(){
-
-  if(index < questions.length - 1){
-
-    index++;
-
-    render();
-
-  }
-
-  else{
-
-    q.textContent =
-      "🎉 Worksheet Complete!";
-
-    ta.value = "";
-
-    ta.disabled = true;
-
-    feedback.style.display = "block";
-
-    feedback.innerHTML =
-      "<b>Your practice score: " +
-      score +
-      " / " +
-      questions.length +
-      "</b><br><br>" +
-      "Review the questions where your answer was incomplete, then practice again.";
-
-    model.style.display = "none";
-
-    bar.style.width = "100%";
-
-    counter.textContent =
-      "Completed";
-
-  }
-
-}
-
-
-/* =========================
-   CLEAR ANSWER
-========================= */
-
-function clearAnswer(){
-
-  ta.value = "";
-
-  localStorage.removeItem(
-    "csharp_ws_" + index
-  );
-
-  feedback.style.display = "none";
-  model.style.display = "none";
-
-  ta.focus();
-
-}
-
-
-/* =========================
-   START APP
-========================= */
-
-render();
-
-</script>
+    </footer>
 
 </body>
-  </html>
+</html>

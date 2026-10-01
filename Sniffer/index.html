@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkFetch — Paste a link, get the data</title>
+  <meta name="description" content="Paste any website or API link — get the preview, metadata, full JSON and headers, all in one place.">
+  <meta name="theme-color" content="#0a0e1a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🔗%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <main class="container">
+    <header>
+      <div class="logo">🔗 Link<span>Fetch</span></div>
+      <h1>Paste a link, <span class="grad">get the data</span></h1>
+      <p class="subtitle">
+        Paste any website or API link — we fetch it server-side and show you the
+        preview, metadata, full JSON and headers, all in one place.
+      </p>
+    </header>
+
+    <section class="input-card">
+      <form id="fetchForm" autocomplete="off">
+        <div class="input-row">
+          <span class="url-icon">🌐</span>
+          <input id="urlInput" type="text" spellcheck="false"
+                 placeholder="https://example.com  or  api.github.com/users/octocat">
+          <button type="submit" id="fetchBtn" title="Fetches the link AND scans the site for hidden APIs">Fetch 🚀</button>
+        </div>
+      </form>
+      <p class="hint muted small">One click does everything: preview + metadata + JSON + 🔗 links + 🔍 hidden-API scan + 🌐 subdomains</p>
+
+      <div class="chips" id="exampleChips">
+        <span class="chips-label">Try:</span>
+        <button type="button" class="chip" data-url="https://api.github.com/users/octocat">🐙 GitHub API (JSON)</button>
+        <button type="button" class="chip" data-url="https://jsonplaceholder.typicode.com/posts/1">📦 JSONPlaceholder</button>
+        <button type="button" class="chip" data-url="https://en.wikipedia.org/wiki/India">📚 Wikipedia</button>
+        <button type="button" class="chip" data-url="https://www.youtube.com">▶️ YouTube</button>
+      </div>
+
+      <div class="chips recent" id="recentWrap" hidden>
+        <span class="chips-label">Recent:</span>
+        <div id="recentChips" class="chips-inner"></div>
+      </div>
+    </section>
+
+    <section id="statusArea"></section>
+    <section id="errorArea"></section>
+
+    <section id="resultArea" hidden>
+      <div class="tabs" id="tabs">
+        <button type="button" class="tab active" data-tab="preview">📄 Preview</button>
+        <button type="button" class="tab" data-tab="data">🧬 Data / JSON</button>
+        <button type="button" class="tab" data-tab="raw">📝 Raw</button>
+        <button type="button" class="tab" data-tab="headers">ℹ️ Headers</button>
+        <button type="button" class="tab" data-tab="scan" id="scanTab" hidden>🔍 API Scan</button>
+        <button type="button" class="tab" data-tab="links" id="linksTab" hidden>🔗 Links</button>
+        <button type="button" class="tab" data-tab="subs" id="subsTab" hidden>🌐 Subdomains</button>
+      </div>
+      <div class="tab-panels">
+        <div class="panel active" id="panel-preview"></div>
+        <div class="panel" id="panel-data"></div>
+        <div class="panel" id="panel-raw"></div>
+        <div class="panel" id="panel-headers"></div>
+        <div class="panel" id="panel-scan"></div>
+        <div class="panel" id="panel-links"></div>
+        <div class="panel" id="panel-subs"></div>
+      </div>
+    </section>
+
+    <details class="api-box">
+      <summary>🛠️ Want to use this as a real API?</summary>
+      <p class="muted small" style="margin-top:10px">
+        This site is itself an API! Call it from anywhere (Postman, code, curl) — you'll get everything as JSON:
+      </p>
+      <pre><code id="apiExample"></code></pre>
+    </details>
+
+    <footer>
+      <p>Powered by server-side fetching — CORS never blocks &nbsp;•&nbsp; <code>POST /api/fetch</code></p>
+    </footer>
+  </main>
+
+  <!-- Live console -->
+  <button type="button" id="consoleToggle" title="Live console (press ` to toggle)">&gt;_</button>
+  <div class="console-drawer" id="consoleDrawer">
+    <div class="console-head">
+      <span class="console-title">🖥️ Live Console</span>
+      <span class="console-hint">type <code>help</code> for commands</span>
+      <button type="button" id="consoleClear">Clear</button>
+      <button type="button" id="consoleClose">✕</button>
+    </div>
+    <div class="console-log" id="consoleLog"></div>
+    <div class="console-input-row">
+      <span class="console-prompt">&gt;</span>
+      <input id="consoleInput" type="text" spellcheck="false" autocomplete="off"
+             placeholder="fetch <url> · scan <url> · subs <domain> · clear · help — or any JavaScript">
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

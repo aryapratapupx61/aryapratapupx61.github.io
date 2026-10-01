@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: linkfetch-backend
+    runtime: node
+    rootDir: Sniffer
+    buildCommand: ""
+    startCommand: "node server.js"
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "18"

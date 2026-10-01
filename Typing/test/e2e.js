@@ -392,49 +392,6 @@ async function run() {
   ok('hard difficulty injects rare words', G.generate('words50', 7, { list: 'top200', difficulty: 'hard' }).length > 100);
   ok('caps option capitalises the first word', /^[A-Z]/.test(G.generate('words10', 7, { list: 'top200', caps: true })));
 
-  console.log('\n[8b] HCM — hardcore mix list');
-  {
-    const h = G.generate('words50', 42, { list: 'hcm' });
-    const tokens = h.split(' ');
-    eq('hcm words50 → 50 tokens', tokens.length, 50);
-    eq('same seed → same HCM text (replayable)', h, G.generate('words50', 42, { list: 'hcm' }));
-    ok('starts with a capital word', /^[A-Z]/.test(tokens[0]), tokens[0]);
-    ok('numbers are mixed in', tokens.some(function (t) { return /^\d+$/.test(t); }),
-      String(tokens.filter(function (t) { return /^\d+$/.test(t); }).length));
-    ok('sentence breaks are present', tokens.some(function (t) { return /\.$/.test(t); }));
-    // every word right after a break starts with a capital (when it is a word)
-    var breaks = 0, badAfterBreak = 0;
-    for (var bi = 0; bi < tokens.length - 1; bi++) {
-      if (/\.$/.test(tokens[bi])) {
-        breaks++;
-        var next = tokens[bi + 1];
-        if (/^[a-z]/.test(next)) badAfterBreak++;
-      }
-    }
-    ok('found breaks to check', breaks > 0, String(breaks));
-    eq('every word after a break is capitalised', badAfterBreak, 0);
-    // sentences are at least 3 words — no one-word "The." oddities
-    var lens = h.split(/(?<=\.)\s/).map(function (s) { return s.split(' ').length; });
-    ok('every sentence has 3+ words', lens.slice(0, -1).every(function (n) { return n >= 3; }),
-      lens.join(','));
-    // nothing but top500 vocabulary (case/break adjusted) and numbers
-    ok('only known words + numbers', tokens.every(function (t) {
-      if (/^\d+$/.test(t)) return true;
-      return G.top500.indexOf(t.replace(/\.$/, '').toLowerCase()) >= 0;
-    }));
-
-    // the button: selecting HCM rebuilds the run text with the mix
-    var hcmPill = window.document.querySelector('[data-setting="list"] .pill[data-value="hcm"]');
-    ok('HCM button exists in the text pills', !!hcmPill);
-    hcmPill.click();
-    ok('HCM button marked on', hcmPill.classList.contains('on'));
-    eq('HCM saved to settings', JSON.parse(window.localStorage.getItem('gx.settings.v1') || '{}').list, 'hcm');
-    var domWords = Array.prototype.map.call(
-      window.document.querySelectorAll('#words .word'), function (e) { return e.textContent; });
-    ok('rendered text mixes numbers in', domWords.some(function (t) { return /^\d+$/.test(t); }));
-    ok('rendered text has capitals', domWords.some(function (t) { return /^[A-Z]/.test(t); }));
-  }
-
   console.log('\n[9] errors during run');
   eq('total jsdom errors', jsErrors.length, 0);
   if (jsErrors.length) jsErrors.forEach(function (m) { console.log('   ! ' + m); });

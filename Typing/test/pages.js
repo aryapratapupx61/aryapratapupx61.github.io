@@ -451,57 +451,6 @@ console.log('\n[speedometer gauge — rev up and settle]');
     String(prog2.length && prog2[prog2.length - 1][1].toFixed(3)));
 }
 
-console.log('\n[nav — fullscreen toggle]');
-{
-  const { w, errors } = loadPage('about.html', null);
-  eq('no script errors', errors.length, 0);
-  const btn = w.document.querySelector('#fsBtn');
-  ok('fullscreen button exists', !!btn);
-  const about = w.document.querySelector('.nav a[href="about.html"]');
-  ok('button sits right of About', !!about && about.nextElementSibling === btn);
-  eq('exactly one icon in the button', btn.querySelectorAll('svg').length, 1);
-  const fsPath = btn.querySelector('path');
-  ok('icon path present', !!fsPath);
-  const enterD = fsPath.getAttribute('d');
-  eq('starts with the enter label', btn.title, 'Full screen');
-
-  // jsdom has no fullscreen API — stub it so the wiring can be exercised
-  const root = w.document.documentElement;
-  let fsOn = false;
-  Object.defineProperty(w.document, 'fullscreenElement', {
-    configurable: true, get: function () { return fsOn ? root : null; }
-  });
-  let req = 0, ex = 0;
-  root.requestFullscreen = function () {
-    fsOn = true; req++;
-    w.document.dispatchEvent(new w.Event('fullscreenchange'));
-    return Promise.resolve();
-  };
-  w.document.exitFullscreen = function () {
-    fsOn = false; ex++;
-    w.document.dispatchEvent(new w.Event('fullscreenchange'));
-  };
-
-  btn.click();
-  eq('tap enters fullscreen', req, 1);
-  ok('button flips to exit state', btn.classList.contains('on'));
-  eq('label becomes exit', btn.title, 'Exit full screen');
-  ok('icon morphed to the exit arrows', fsPath.getAttribute('d') !== enterD,
-    fsPath.getAttribute('d'));
-  btn.click();
-  eq('tap again exits fullscreen', ex, 1);
-  ok('button back to enter state', !btn.classList.contains('on'));
-  eq('label back to enter', btn.title, 'Full screen');
-  eq('icon morphed back to enter arrows', fsPath.getAttribute('d'), enterD);
-
-  // leaving with Esc fires fullscreenchange without a click — icon must follow
-  fsOn = true;
-  w.document.dispatchEvent(new w.Event('fullscreenchange'));
-  ok('external fullscreen change synced', btn.classList.contains('on'));
-  eq('external change relabels too', btn.title, 'Exit full screen');
-  ok('external change morphs the icon too', fsPath.getAttribute('d') !== enterD);
-}
-
 console.log('\n[cross-page consistency]');
 {
   const files = ['index.html', 'passages.html', 'practice.html', 'results.html', 'leaderboard.html', 'lessons.html', 'about.html'];
@@ -515,12 +464,8 @@ console.log('\n[cross-page consistency]');
     const html = fs.readFileSync(path.join(ROOT, f), 'utf8');
     ok(f + ' has title + meta description',
       /<title>[^<]+<\/title>/.test(html) && /name="description"/.test(html));
-    ok(f + ' has the fullscreen toggle in the nav',
-      /class="nav"[\s\S]*?id="fsBtn"/.test(html));
-    ok(f + ' footer credits Krishna UPX61 with a red X',
-      /GOD<span class="gx-red">X<\/span>SHADOW<\/strong> — by Krishna UPX61/.test(html));
-    const refs = (html.match(/(?:src|href)="([^"]+\.(?:js|css)(?:\?[^"]*)?)"/g) || [])
-      .map(s => s.replace(/.*="([^"]+)"/, '$1').split('?')[0]).filter(s => !/^https?:/.test(s));
+    const refs = (html.match(/(?:src|href)="([^"]+\.(?:js|css))"/g) || [])
+      .map(s => s.replace(/.*="([^"]+)"/, '$1')).filter(s => !/^https?:/.test(s));
     const missing = refs.filter(r => !fs.existsSync(path.join(ROOT, r)));
     ok(f + ' local asset refs exist (' + refs.length + ')', missing.length === 0, missing.join(','));
   });

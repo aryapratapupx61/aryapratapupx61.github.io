@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#03050b" />
+<meta name="description" content="GODXSHADOW — neon glass live feed of Sarkari Results, Admit Cards, Latest Jobs, Answer Keys & Syllabus, streamed live from sarkariresult.com.cm" />
+<title>GODXSHADOW ⚡ Sarkari Result LIVE</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2303050b'/%3E%3Ctext x='50' y='68' font-size='52' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2300e5ff'%3EGS%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="fx-grid" aria-hidden="true"></div>
+<div class="fx-glow" aria-hidden="true"></div>
+<div class="fx-scan" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#" id="brandHome" title="GODXSHADOW home">
+    <span class="brand-mark">GS</span>
+    <span class="brand-txt">
+      <span class="brand-name" data-text="GODXSHADOW">GODXSHADOW</span>
+      <span class="brand-sub">sarkari result · live stream</span>
+    </span>
+  </a>
+
+  <nav class="pills" id="navPills" aria-label="Categories"></nav>
+
+  <div class="top-actions">
+    <span class="live-chip" id="liveChip" title="Live status">
+      <i class="dot"></i> <span class="lbl">LIVE</span> <b id="clock">--:--:--</b>
+    </span>
+    <button class="btn-glass" id="backBtnTop" title="Pichhle page par jao (browser back)">
+      <span class="ico">←</span> <span class="lbl">Back</span>
+    </button>
+    <button class="btn-glass" id="topBtn" title="Upar jao">
+      <span class="ico">↑</span> <span class="lbl">Top</span>
+    </button>
+    <button class="btn-glass" id="refreshBtn" title="Abhi refresh karo (force)">
+      <span class="ico">⟳</span> <span id="countdown">60</span>s
+    </button>
+    <button class="btn-glass" id="fullViewBtn" title="Poori screen (wide) view">⛶ <span class="lbl">Full View</span></button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO = 3D flip card: front bilkul purana, back me TOP LATEST (Result/Admit Card/Answer Key/Latest Job) -->
+  <section class="hero" id="heroFlip">
+    <!-- ⇄ SWITCH: tap = LAST DATE ZONE, dobara tap = SARKARI RESULT wala front -->
+    <button class="flip-switch" id="flipSwitch" aria-pressed="false"
+            title="Tap karo: LAST DATE ZONE / dobara tap: SARKARI RESULT">
+      <span class="fs-lbl">Last Date Zone</span>
+    </button>
+
+    <div class="fliptile-inner">
+
+      <div class="hero-face hero-front">
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            <span class="l1">SARKARI RESULT</span>
+            <span class="l2" data-text="LIVE">LIVE</span>
+          </h1>
+          <p class="hero-intro" id="intro">Connecting to live feed…</p>
+          <div class="stats" id="stats"></div>
+        </div>
+
+        <div class="hero-right">
+          <div class="searchbox">
+            <span class="s-ico">⌕</span>
+            <input id="search" type="search" autocomplete="off" spellcheck="false"
+                   placeholder="Search live posts — RRB NTPC, SSC CGL, UPPSC, Admit Card…" />
+            <kbd>/</kbd>
+          </div>
+          <p class="src-note">
+            source · <a href="https://sarkariresult.com.cm/" target="_blank" rel="noopener">sarkariresult.com.cm</a>
+            · auto-sync <b id="syncNote">every 60s</b> · <b id="modeChip" style="color:var(--lime)">⚙ node server</b>
+          </p>
+          <p class="flip-hint">⇄ upar switch dabao · last date zone</p>
+        </div>
+      </div>
+
+      <div class="hero-face hero-back">
+        <div class="fb-head">
+          <span class="fb-title rz">🔴 LAST DATE ZONE</span>
+          <span class="fb-note" id="rzNote">aaj + abhi chal rahe forms</span>
+        </div>
+        <div class="fb-grid" id="flipGrid"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ticker" id="ticker" hidden>
+    <div class="ticker-tag">⚡ HOT</div>
+    <div class="ticker-view"><div class="ticker-track" id="tickerTrack"></div></div>
+  </div>
+
+  <!-- sabhi sections ke buttons — har page par dikhte hain -->
+  <nav class="quickbar" id="quickBar" aria-label="All sections"></nav>
+
+  <section id="view" class="view" aria-live="polite"></section>
+
+  <footer class="foot">
+    <div class="foot-brand">GODXSHADOW<span>™</span></div>
+    <p>
+      Fan-made neon interface. All data is fetched live from
+      <a href="https://sarkariresult.com.cm/" target="_blank" rel="noopener">sarkariresult.com.cm</a>.
+      This site is not affiliated with the original publisher — always verify details on the official
+      government website before applying.
+    </p>
+    <p class="foot-meta"><span id="footStatus">—</span></p>
+  </footer>
+</main>
+
+<!-- floating dock -->
+<div class="dock" id="dock">
+  <button id="dockTop" title="Upar jao">↑</button>
+  <button id="dockBack" title="Pichhle page par jao">←</button>
+</div>
+
+<!-- detail drawer -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Post detail">
+  <div class="drawer-bar">
+    <span class="drawer-title" id="drawerTitle">Loading…</span>
+    <div class="drawer-acts">
+      <a class="btn-glass" id="drawerOpen" href="#" target="_blank" rel="noopener">↗ <span class="lbl">Original</span></a>
+      <button class="btn-glass" id="drawerClose" aria-label="Close">✕</button>
+    </div>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="parser.js"></script>
+<script src="source-proxy.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

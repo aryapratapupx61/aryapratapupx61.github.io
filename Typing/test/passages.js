@@ -534,10 +534,7 @@ console.log('\n[results screen — flash when the final pace is 35+]');
   ok('final pace above the target', finalWpm >= 35, String(finalWpm));
   eq('full-screen celebration fires for a 35+ run',
     w.document.querySelectorAll('.pb-flash').length, 1);
-  eq('celebration names the actual pace',
-    w.document.querySelector('.pb-flash span').textContent, finalWpm + ' WPM');
-  ok('celebration uses the green congratulation style',
-    w.document.querySelector('.pb-flash').classList.contains('celebrate'));
+  eq('celebration names the target', w.document.querySelector('.pb-flash span').textContent, '35+ WPM');
   eq('live-style flash not used on the reveal', flashes(), 0);
 }
 

@@ -501,39 +501,4 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   const year = GX.el('#year');
   if (year) year.textContent = new Date().getFullYear();
-
-  /* fullscreen toggle — one icon button in the nav, right of About.
-     The same icon morphs: expand arrows -> collapse arrows while active. */
-  const fsBtn = GX.el('#fsBtn');
-  if (fsBtn) {
-    const FS_ENTER = 'M8 3H3v5 M16 3h5v5 M8 21H3v-5 M16 21h5v-5';
-    const FS_EXIT = 'M3 8h5V3 M21 8h-5V3 M3 16h5v5 M21 16h-5v5';
-    const root = document.documentElement;
-    const fsEl = function () {
-      return document.fullscreenElement || document.webkitFullscreenElement || null;
-    };
-    const sync = function () {
-      const on = !!fsEl();
-      fsBtn.classList.toggle('on', on);
-      const p = fsBtn.querySelector('path');
-      if (p) p.setAttribute('d', on ? FS_EXIT : FS_ENTER);
-      const label = on ? 'Exit full screen' : 'Full screen';
-      fsBtn.title = label;
-      fsBtn.setAttribute('aria-label', label);
-    };
-    fsBtn.addEventListener('click', function () {
-      if (fsEl()) {
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-      } else if (root.requestFullscreen) {
-        const p = root.requestFullscreen();
-        if (p && p.catch) p.catch(function () {});   // denied by the browser
-      } else if (root.webkitRequestFullscreen) {
-        root.webkitRequestFullscreen();
-      }
-    });
-    // also stays correct when the user leaves with Esc
-    document.addEventListener('fullscreenchange', sync);
-    document.addEventListener('webkitfullscreenchange', sync);
-    sync();
-  }
 });

@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: godxshadow-sarkari-live
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: ""
+    startCommand: node server.js
+    healthCheckPath: /api/status
+    envVars:
+      - key: PORT
+        value: "3000"
